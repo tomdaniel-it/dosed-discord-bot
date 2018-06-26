@@ -6,4 +6,5 @@ A discord bot which informs users about the latest items of the Supreme brand.
 ```
 npm install discord.js
 npm install cheerio
+npm install request
 ```
