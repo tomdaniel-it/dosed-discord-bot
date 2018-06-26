@@ -1,0 +1,24 @@
+{
+  "name": "dosed-discord-bot",
+  "version": "1.0.0",
+  "description": "A discord bot which informs users about the latest items of the Supreme brand.",
+  "main": "app.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "discord.js": "^11.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomdaniel-it/dosed-discord-bot.git"
+  },
+  "author": "Dosed",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tomdaniel-it/dosed-discord-bot/issues"
+  },
+  "homepage": "https://github.com/tomdaniel-it/dosed-discord-bot#readme"
+}
