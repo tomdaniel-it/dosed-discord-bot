@@ -2,15 +2,17 @@
 export let displayedRestocks = [];
 
 // Returns all restock items
-export function getRestocksSince(timestamp) { 
+// Regions: 'eu', 'us', 'jpn'
+export function getRestocksSince(timestamp, region) { 
     return [];
 }
 
 // Returns all new restock items which haven't been displayed yet
 // botStartTime:Date => Time that the bot was started
-export function getNewRestocks(botStartTime) { 
-    if (displayedRestocks.length === 0) return getRestocksSince(botStartTime);
-    return getRestocksSince(displayedRestocks.reduce((max, obj) => obj.timestamp > max ? obj.timestamp : max, data[0].timestamp));
+// Regions: 'eu', 'us', 'jpn'
+export function getNewRestocks(botStartTime, region) { 
+    if (displayedRestocks.length === 0) return getRestocksSince(botStartTime, region);
+    return getRestocksSince(displayedRestocks.reduce((max, obj) => obj.timestamp > max ? obj.timestamp : max, data[0].timestamp), region);
 }
 
 // Add restocks to displayedRestocks array
