@@ -5,7 +5,7 @@ module.exports = {
         event_duration: 30,
         regions: {
             eu: "eu", 
-            us: "US", 
+            us: "us",
             jpn: "jpn"
         },
         url: "https://www.supremecommunity.com/restocks/",
@@ -14,6 +14,7 @@ module.exports = {
             us: ["461202477132283914"],
             jpn: ["461202512586866688"]
         },
+        wait_between_pages_interval: 1,
         rich_embed_hours_ago_limit: 12, // the limit for "x hours ago", if greater, a timestamp as string will be displayed
     },
     proxies: [
