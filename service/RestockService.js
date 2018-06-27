@@ -14,7 +14,7 @@ module.exports = class RestockService {
     // Returns all new restock items which haven't been displayed yet
     // botStartTime:Date => Time that the bot was started
     // Regions: 'eu', 'us', 'jpn'
-    getNewRestocks(botStartTime, region) { 
+    getNewRestocks(botStartTime, region) {
         if (this.displayedRestocks.length === 0) return this.getRestocksSince(botStartTime, region);
         return this.getRestocksSince(this.displayedRestocks.reduce((max, obj) => obj.timestamp > max ? obj.timestamp : max, data[0].timestamp), region);
     }
