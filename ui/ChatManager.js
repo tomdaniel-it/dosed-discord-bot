@@ -9,7 +9,7 @@ module.exports = class ChatManager {
     displayRestockItem(restockItem) {
         try {
             this.bot.channels.array().forEach(channel => {
-                if (config.restocks.channels[restockItem.region.toLowerCase()] === channel.id) {
+                if (config.restocks.channels[restockItem.region.toLowerCase()].indexOf(channel.id.toString()) !== -1) {
                     let hours = parseInt(Math.abs((new Date()) - restockItem.timestamp) / 36e5);
                     if (hours > config.restocks.rich_embed_hours_ago_limit) {
                         channel.send({ embed: {

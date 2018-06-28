@@ -33,14 +33,15 @@ class RestockScraper {
                 var restockData = jQueryElement.data();
                 restockData.timestamp = new Date(jQueryElement.find('.timeago').attr("datetime"));
                 if(restockData.timestamp < newerThanTimestamp) {
+                    console.log("Timestamp CHECK: " + restockData.timestamp + " < " + newerThanTimestamp);
                     shouldCheckNextPage = false;
                     break;
                 };
                 restockData.description = jQueryElement.find(".restock-colorway").text();
-                restockData.url = "//supremenewyork.com/shop/dosed/" + restockData.itemid + "/" + restockData.styleid;
+                restockData.url = "https://supremenewyork.com/shop/dosed/" + restockData.itemid + "/" + restockData.styleid;
                 restockData.region = region;
                 currentPageRestocks.push(new Restock(restockData.itemid, restockData.styleid, restockData.itemname,
-                    restockData.description, restockData.itemimg, restockData.timestamp, restockData.url, restockData.region));
+                    restockData.description, 'https:' + restockData.itemimg, restockData.timestamp, restockData.url, restockData.region));
             }
             restocks = restocks.concat(currentPageRestocks);
             if(shouldCheckNextPage) {
