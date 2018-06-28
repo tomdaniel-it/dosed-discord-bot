@@ -43,9 +43,10 @@ module.exports = class RestockChecker {
     checkRestock(region) {
         let callback = (error, newRestocks) => {
             if (error) {
-                logService.logWarning("ui/RestockChecker.js:46 => Check restock request failed, error: " + logService.objToString(error));
+                logService.logWarning('ui/RestockChecker.js:46 => Check restock request failed, error: ' + logService.objToString(error));
                 return;
             }
+            logService.log('HTTP GET request (' + region + ') => received ' + newRestocks.length + ' new items.');
             if (newRestocks.length !== 0 && this.eventActive) {
                 clearTimeout(this.interval_event_timer);
                 this.interval_event_timer = setInterval(this.stopEvent.bind(this), config.restocks.event_duration * 1000);

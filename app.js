@@ -9,7 +9,6 @@ let botStartTime;
 bot.on('ready', () => {
     try {
         botStartTime = new Date();
-        console.log("Setting current path to " + __dirname);
         logService.setPath(__dirname);
         let restockChecker = new RestockChecker(bot, botStartTime);
         restockChecker.start();
