@@ -36,5 +36,11 @@ module.exports = {
         { ip: "46.101.89.147", port: 8080},
         { ip: "5.152.193.35", port: 808},
         { ip: "138.68.173.29", port: 8080},
-    ]
+    ],
+    logger: {
+        log_to_file: true,
+        log_to_console: true,
+        log_file_name: "log.txt",
+        log_file_directory: "logs",
+    }
 };
