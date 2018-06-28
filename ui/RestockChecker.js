@@ -40,17 +40,18 @@ module.exports = class RestockChecker {
     }
 
     checkRestock(region) {
-        let newRestocks = this.service.getNewRestocks(this.botStartTime, region);
-        console.log("Checking " + region + " => " + newRestocks.length);
-        if (newRestocks.length !== 0 && this.eventActive) {
-            clearTimeout(this.interval_event_timer);
-            this.interval_event_timer = setInterval(this.stopEvent.bind(this), config.restocks.event_duration * 1000);
-        } else if (newRestocks.length !== 0) {
-            this.startEvent();
-        }
-        newRestocks.forEach(restockItem => () => {
-            this.chatManager.displayRestockItem(restockItem);
-        });
-        this.service.addDisplayedRestocks(newRestocks);
+        let callback = (error, newRestocks) => {
+            if (newRestocks.length !== 0 && this.eventActive) {
+                clearTimeout(this.interval_event_timer);
+                this.interval_event_timer = setInterval(this.stopEvent.bind(this), config.restocks.event_duration * 1000);
+            } else if (newRestocks.length !== 0) {
+                this.startEvent();
+            }
+            newRestocks.forEach(restockItem => () => {
+                this.chatManager.displayRestockItem(restockItem);
+            });
+            this.service.addDisplayedRestocks(newRestocks);
+        };
+        this.service.getNewRestocks(this.botStartTime, region, callback);
     }
 }

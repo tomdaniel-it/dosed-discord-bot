@@ -15,7 +15,8 @@ module.exports = {
             jpn: ["461202512586866688"]
         },
         wait_between_pages_interval: 1,
-        rich_embed_hours_ago_limit: 12, // the limit for "x hours ago", if greater, a timestamp as string will be displayed
+        rich_embed_hours_ago_limit: 12, // (hours) the limit for "x hours ago", if greater, a timestamp as string will be displayed
+        proxy_switch_interval: 600,
     },
     proxies: [
         { ip: "54.36.162.123", port: 10000},

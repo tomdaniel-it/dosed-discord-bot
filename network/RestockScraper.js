@@ -1,13 +1,14 @@
 const requestPromise = require('request-promise');
 const cheerio = require('cheerio');
 const Restock = require('../domain/Restock.js');
+const config = require('../config.js');
 
 class RestockScraper {
 
-    constructor(url, waitBetweenPagesInterval)
+    constructor()
     {
-        this.url = url;
-        this.waitBetweenPagesInterval = waitBetweenPagesInterval;
+        this.url = config.restocks.url;
+        this.waitBetweenPagesInterval = config.restocks.wait_between_pages_interval;
     }
 
     // Get all restocks from a region that were made after the given timestamp.
@@ -16,8 +17,7 @@ class RestockScraper {
     {
         if(page == undefined) page = 1;
         if(restocks == undefined) restocks = [];
-        var requestMethod = requestPromise;
-        return requestMethod({
+        return requestPromise({
             uri: this.url + region + "/" + page + "/",
             transform: function (body) {
                 return cheerio.load(body);
