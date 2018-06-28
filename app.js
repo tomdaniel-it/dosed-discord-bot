@@ -7,16 +7,24 @@ const logService = require('./service/LogService.js');
 let botStartTime;
 
 bot.on('ready', () => {
-    botStartTime = new Date();
-    console.log("Setting current path to " + __dirname);
-    logService.setPath(__dirname);
-    let restockChecker = new RestockChecker(bot, botStartTime);
-    restockChecker.start();
-    logService.log("Bot launched successfully...");
+    try {
+        botStartTime = new Date();
+        console.log("Setting current path to " + __dirname);
+        logService.setPath(__dirname);
+        let restockChecker = new RestockChecker(bot, botStartTime);
+        restockChecker.start();
+        logService.log("Bot launched successfully...");
+    } catch (err) {
+        logService.logError("app.js:18 => " + logService.objToString(err));
+    }
 });
 
 bot.on('message', message => {
 
 });
 
-bot.login(keys.discord_bot_token);
+try {
+    bot.login(keys.discord_bot_token);
+} catch (err) {
+    logService.logError("app.js:29 => " + logService.objToString(err));
+}

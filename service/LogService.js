@@ -91,5 +91,9 @@ module.exports = {
 
     setPath: function(p) {
         path = p;
+    },
+
+    objToString: function(obj) {
+        return util.inspect(obj);
     }
 };

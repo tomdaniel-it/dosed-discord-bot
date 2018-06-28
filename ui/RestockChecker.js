@@ -1,6 +1,7 @@
 const config = require('../config.js');
 const RestockService = require('../service/RestockService.js');
 const ChatManager = require('./ChatManager.js');
+const logService = require('../service/LogService.js');
 
 module.exports = class RestockChecker {
     constructor(bot, botStartTime) {
@@ -41,6 +42,10 @@ module.exports = class RestockChecker {
 
     checkRestock(region) {
         let callback = (error, newRestocks) => {
+            if (error) {
+                logService.logWarning("ui/RestockChecker.js:46 => Check restock request failed, error: " + logService.objToString(error));
+                return;
+            }
             if (newRestocks.length !== 0 && this.eventActive) {
                 clearTimeout(this.interval_event_timer);
                 this.interval_event_timer = setInterval(this.stopEvent.bind(this), config.restocks.event_duration * 1000);
