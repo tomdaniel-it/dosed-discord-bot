@@ -32,8 +32,7 @@ class RestockScraper {
                 if(jQueryElement.hasClass('removed-scapp')) continue;
                 var restockData = jQueryElement.data();
                 restockData.timestamp = new Date(jQueryElement.find('.timeago').attr("datetime"));
-                if(restockData.timestamp < newerThanTimestamp) {
-                    console.log("Timestamp CHECK: " + restockData.timestamp + " < " + newerThanTimestamp);
+                if(restockData.timestamp <= newerThanTimestamp) {
                     shouldCheckNextPage = false;
                     break;
                 };

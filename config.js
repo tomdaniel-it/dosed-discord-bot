@@ -1,7 +1,7 @@
 module.exports = {
     restocks: {
         update_interval: 120,
-        event_update_interval: 5,
+        event_update_interval: 10,
         event_duration: 30,
         regions: {
             eu: "eu", 

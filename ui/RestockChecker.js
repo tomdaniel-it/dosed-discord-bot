@@ -12,9 +12,15 @@ module.exports = class RestockChecker {
     }
 
     start() {
-        this.interval_eu = setInterval(this.checkRestock.bind(this, config.restocks.regions.eu), config.restocks.update_interval * 1000);
-        this.interval_us = setInterval(this.checkRestock.bind(this, config.restocks.regions.us), config.restocks.update_interval * 1000);
-        this.interval_jpn = setInterval(this.checkRestock.bind(this, config.restocks.regions.jpn), config.restocks.update_interval * 1000);
+        setTimeout(this.checkRestock.bind(this, config.restocks.regions.eu), 1);
+        setTimeout(this.checkRestock.bind(this, config.restocks.regions.us), 2001);
+        setTimeout(this.checkRestock.bind(this, config.restocks.regions.eu), 4001);
+        let eu = () => { this.interval_eu = setInterval(this.checkRestock.bind(this, config.restocks.regions.eu), config.restocks.update_interval * 1000); };
+        let us = () => { this.interval_us = setInterval(this.checkRestock.bind(this, config.restocks.regions.us), config.restocks.update_interval * 1000); };
+        let jpn = () => { this.interval_jpn = setInterval(this.checkRestock.bind(this, config.restocks.regions.jpn), config.restocks.update_interval * 1000); };
+        eu();
+        setTimeout(us, 2000);
+        setTimeout(jpn, 4000);
     }
 
     stop() {
@@ -27,9 +33,12 @@ module.exports = class RestockChecker {
     startEvent() {
         this.stop();
         this.eventActive = true;
-        this.interval_eu = setInterval(this.checkRestock.bind(this, config.restocks.regions.eu), config.restocks.event_update_interval * 1000);
-        this.interval_us = setInterval(this.checkRestock.bind(this, config.restocks.regions.us), config.restocks.event_update_interval * 1000);
-        this.interval_jpn = setInterval(this.checkRestock.bind(this, config.restocks.regions.jpn), config.restocks.event_update_interval * 1000);
+        let eu = () => { this.interval_eu = setInterval(this.checkRestock.bind(this, config.restocks.regions.eu), config.restocks.event_update_interval * 1000); };
+        let us = () => { this.interval_us = setInterval(this.checkRestock.bind(this, config.restocks.regions.us), config.restocks.event_update_interval * 1000); };
+        let jpn = () => { this.interval_jpn = setInterval(this.checkRestock.bind(this, config.restocks.regions.jpn), config.restocks.event_update_interval * 1000); };
+        eu();
+        setTimeout(us, 1000);
+        setTimeout(jpn, 2000);
         this.interval_event_timer = setInterval(this.stopEvent.bind(this), config.restocks.event_duration * 1000);
     }
 
@@ -48,7 +57,6 @@ module.exports = class RestockChecker {
             }
             logService.log('HTTP GET request (' + region + ') => received ' + newRestocks.length + ' new items.');
             newRestocks.forEach(restockItem => {
-                console.log(restockItem);
                 this.chatManager.displayRestockItem(restockItem);
             });
             this.service.addDisplayedRestocks(newRestocks);

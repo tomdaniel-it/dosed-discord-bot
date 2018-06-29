@@ -21,7 +21,6 @@ module.exports = class RestockService {
     // callback will have 3 parameters: error, restocks and region.
     getNewRestocks(botStartTime, region, callback) {
         if (this.displayedRestocks.length === 0) return this.getRestocksSince(botStartTime, region, callback);
-        console.log("Latest timestamp: " + this.displayedRestocks.reduce((max, obj) => obj.timestamp > max ? obj.timestamp : max, this.displayedRestocks[0].timestamp));
         return this.getRestocksSince(this.displayedRestocks.reduce((max, obj) => obj.timestamp > max ? obj.timestamp : max, this.displayedRestocks[0].timestamp), region, callback);
     }
     
