@@ -2,6 +2,7 @@ const config = require('../config.js');
 const RestockService = require('../service/RestockService.js');
 const ChatManager = require('./ChatManager.js');
 const logService = require('../service/LogService.js');
+const Restock = require('../domain/Restock.js');
 
 module.exports = class RestockChecker {
     constructor(bot, botStartTime) {
@@ -9,6 +10,7 @@ module.exports = class RestockChecker {
         this.eventActive = false;
         this.service = new RestockService();
         this.chatManager = new ChatManager(bot);
+        this.failSafeTimeout = false;
     }
 
     start() {
@@ -50,14 +52,19 @@ module.exports = class RestockChecker {
     }
 
     checkRestock(region) {
+        if (this.failSafeTimeout) return;
         let callback = (error, newRestocks) => {
             if (error) {
                 logService.logWarning('ui/RestockChecker.js:46 => Check restock request failed, error: ' + logService.objToString(error));
+                this.failSafeTimeout = true;
+                setTimeout(() => { this.failSafeTimeout = false; }, config.restocks.request_block_timeout * 1000);
                 return;
             }
             logService.log('HTTP GET request (' + region + ') => received ' + newRestocks.length + ' new items.');
             newRestocks.forEach(restockItem => {
-                this.chatManager.displayRestockItem(restockItem);
+                this.chatManager.displayRestockItem(restockItem, id => {
+                    this.service.saveMessageId(id);
+                });
             });
             this.service.addDisplayedRestocks(newRestocks);
             if (newRestocks.length !== 0 && this.eventActive) {
