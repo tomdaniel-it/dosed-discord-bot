@@ -15,7 +15,7 @@ module.exports = {
             jpn: ["461202512586866688"]
         },
         wait_between_pages_interval: 1,
-        rich_embed_hours_ago_limit: 168 /* 7 days */, // (hours) the limit for "x hours ago", if greater, a timestamp as string will be displayed (also automatically works with days)
+        rich_embed_hours_ago_limit: 3, // (hours) the limit for "x hours ago", if greater, a timestamp as string will be displayed (also automatically works with days)
         proxy_switch_interval: 600,
         message_update_interval: 5, // Updates the timestamps in the messages
         request_block_timeout: 300, // The amount of seconds to wait if a request gets blocked

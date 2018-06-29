@@ -11,6 +11,11 @@ module.exports = class RestockChecker {
         this.service = new RestockService();
         this.chatManager = new ChatManager(bot);
         this.failSafeTimeout = false;
+
+        let now = new Date();
+        this.chatManager.displayRestockItem(new Restock(1234, 1234, "Test item", "A description", "https://st2.depositphotos.com/2398103/5516/v/950/depositphotos_55167265-stock-illustration-vector-test-icon.jpg", now, "https://st2.depositphotos.com/2398103/5516/v/950/depositphotos_55167265-stock-illustration-vector-test-icon.jpg", "us"), (channelId, id) => {
+            this.service.saveMessageId(channelId, id, now);
+        });
     }
 
     start() {
@@ -62,8 +67,8 @@ module.exports = class RestockChecker {
             }
             logService.log('HTTP GET request (' + region + ') => received ' + newRestocks.length + ' new items.');
             newRestocks.forEach(restockItem => {
-                this.chatManager.displayRestockItem(restockItem, id => {
-                    this.service.saveMessageId(id);
+                this.chatManager.displayRestockItem(restockItem, channelId, id => {
+                    this.service.saveMessageId(channelId, id, restockItem.timestamp);
                 });
             });
             this.service.addDisplayedRestocks(newRestocks);
