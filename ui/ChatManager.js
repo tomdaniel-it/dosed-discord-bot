@@ -128,6 +128,8 @@ module.exports = class ChatManager {
                                 }, files: [{ attachment: 'img/dosed_logo.png', name: 'icon.png' }] });
                                 this.service.removeMessageIds(channel.id, [ message.id ]);
                             }
+                        }).catch(() => {
+                            this.service.removeMessageIds(channel.id, [ id.id ]);
                         });
                     }, delay);
                     delay += 1000;
