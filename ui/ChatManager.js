@@ -83,50 +83,54 @@ module.exports = class ChatManager {
                 ids.forEach(id => {
                     setTimeout(() => {
                         channel.fetchMessage(id.id).then(message => {
-                            if (message.embeds.length === 0) return;
-                            let embed = message.embeds[0];
-                            let time = embed.footer.text;
-                            if (!/^[^\|]+\|\s*[0-9]{1,5}.*ago$/.test(time)) return;
-                            let diff = this.getTimeDifference(id.timestamp);
-                            if (diff) {
-                                time = time.split('|');
-                                time[time.length-1] = diff;
-                                time = time.join('|');
-                                if (time === embed.footer.text) return;
-                                message.edit({ embed: {
-                                    description: embed.description,
-                                    color: embed.color,
-                                    footer: {
-                                      text: time
-                                    },
-                                    thumbnail: {
-                                      url: embed.thumbnail.url
-                                    },
-                                    author: {
-                                      name: embed.author.name,
-                                      url: embed.author.url,
-                                      icon_url: "attachment://icon.png"
-                                    }
-                                }, files: [{ attachment: 'img/dosed_logo.png', name: 'icon.png' }] });
-                            } else {
-                                time = time.split('|');
-                                message.edit({ embed: {
-                                    description: embed.description,
-                                    color: embed.color,
-                                    timestamp: id.timestamp.toISOString(),
-                                    footer: {
-                                        text: time[0]
-                                    },
-                                    thumbnail: {
-                                        url: embed.thumbnail.url
-                                    },
-                                    author: {
-                                        name: embed.author.name,
-                                        url: embed.author.url,
-                                        icon_url: "attachment://icon.png"
-                                    }
-                                }, files: [{ attachment: 'img/dosed_logo.png', name: 'icon.png' }] });
-                                this.service.removeMessageIds(channel.id, [ message.id ]);
+                            try {
+                                if (message.embeds.length === 0) return;
+                                let embed = message.embeds[0];
+                                let time = embed.footer.text;
+                                if (!/^[^\|]+\|\s*[0-9]{1,5}.*ago$/.test(time)) return;
+                                let diff = this.getTimeDifference(id.timestamp);
+                                if (!(!diff)) {
+                                    time = time.split('|');
+                                    time[time.length-1] = diff;
+                                    time = time.join('|');
+                                    if (time === embed.footer.text) return;
+                                    message.edit({ embed: {
+                                        description: embed.description,
+                                        color: embed.color,
+                                        footer: {
+                                          text: time
+                                        },
+                                        thumbnail: {
+                                          url: embed.thumbnail.url
+                                        },
+                                        author: {
+                                          name: embed.author.name,
+                                          url: embed.author.url,
+                                          icon_url: "attachment://icon.png"
+                                        }
+                                    }, files: [{ attachment: 'img/dosed_logo.png', name: 'icon.png' }] });
+                                } else {
+                                    time = time.split('|');
+                                    message.edit({ embed: {
+                                        description: embed.description,
+                                        color: embed.color,
+                                        timestamp: id.timestamp.toISOString(),
+                                        footer: {
+                                            text: time[0]
+                                        },
+                                        thumbnail: {
+                                            url: embed.thumbnail.url
+                                        },
+                                        author: {
+                                            name: embed.author.name,
+                                            url: embed.author.url,
+                                            icon_url: "attachment://icon.png"
+                                        }
+                                    }, files: [{ attachment: 'img/dosed_logo.png', name: 'icon.png' }] });
+                                    this.service.removeMessageIds(channel.id, [ message.id ]);
+                                }
+                            } catch (err) {
+                                logService.logError("ChatManager.js:133 => " + logService.objToString(err));
                             }
                         }).catch(() => {
                             this.service.removeMessageIds(channel.id, [ id.id ]);
