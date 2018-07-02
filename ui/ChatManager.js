@@ -11,7 +11,7 @@ module.exports = class ChatManager {
         if (messageUpdateInterval !== undefined && messageUpdateInterval !== null) {
             clearInterval(messageUpdateInterval);
         }
-        setInterval(this.updateMessages.bind(this), config.restocks.message_update_interval * 1000);
+        messageUpdateInterval = setInterval(this.updateMessages.bind(this), config.restocks.message_update_interval * 1000);
     }
 
     // callback param: channel_id, id (of message)
