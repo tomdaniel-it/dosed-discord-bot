@@ -1,4 +1,5 @@
 module.exports = {
+    prefix: '!', // 1 character MAX
     restocks: {
         update_interval: 120,
         event_update_interval: 10,
@@ -44,5 +45,35 @@ module.exports = {
         log_to_console: true,
         log_file_name: "log.txt",
         log_file_directory: "logs",
-    }
+    },
+    commands: [
+        {
+            name: 'strike add',
+            file_name: 'strike_add.js',
+            description: 'strike add [user] [reason] : Add strike for a user',
+            roles: [ 'admin', 'Server Manager', 'Developer', 'Staff' ]
+        },
+        {
+            name: 'strike remove',
+            file_name: 'strike_remove.js',
+            description: 'strike remove [user] [strike position] : Remove strike for a user',
+            roles: [ 'admin', 'Server Manager', 'Developer', 'Staff' ]
+        },
+        {
+            name: 'strike see',
+            file_name: 'strike_see.js',
+            description: 'strike see [user] : See all strikes of a user',
+            roles: [ 'admin', 'Server Manager', 'Developer', 'Staff' ]
+        },
+        {
+            name: 'strike count',
+            file_name: 'strike_count.js',
+            description: 'strike count : See how many strikes you have'
+        },
+        {
+            name: 'help',
+            file_name: 'help.js',
+            description: 'help : Get help for this bot'
+        }
+    ]
 };
