@@ -19,7 +19,7 @@ module.exports = class RestockChecker {
     start() {
         setTimeout(this.checkRestock.bind(this, config.restocks.regions.eu), 1);
         setTimeout(this.checkRestock.bind(this, config.restocks.regions.us), 2001);
-        setTimeout(this.checkRestock.bind(this, config.restocks.regions.eu), 4001);
+        setTimeout(this.checkRestock.bind(this, config.restocks.regions.jpn), 4001);
         let eu = () => { clearInterval(this.interval_eu); this.interval_eu = setInterval(this.checkRestock.bind(this, config.restocks.regions.eu), config.restocks.update_interval * 1000); };
         let us = () => { clearInterval(this.interval_us); this.interval_us = setInterval(this.checkRestock.bind(this, config.restocks.regions.us), config.restocks.update_interval * 1000); };
         let jpn = () => { clearInterval(this.interval_jpn); this.interval_jpn = setInterval(this.checkRestock.bind(this, config.restocks.regions.jpn), config.restocks.update_interval * 1000); };
