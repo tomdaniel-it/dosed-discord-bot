@@ -154,7 +154,7 @@ module.exports = class ChatManager {
                 amountAgo = parseInt(Math.abs(now - timestamp) / 36e5);
                 datepart = "hours";
                 if (amountAgo >= 24) {
-                    amountAgo = Math.floor((now - timestamp) / (1000 * 60 * 60 * 24));
+                    amountAgo = parseInt(Math.floor((now - timestamp) / (1000 * 60 * 60 * 24)));
                     datepart = "days";
                 }
             }

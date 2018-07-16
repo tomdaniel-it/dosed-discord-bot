@@ -63,7 +63,6 @@ module.exports = class RestockChecker {
                 setTimeout(() => { this.failSafeTimeout = false; }, config.restocks.request_block_timeout * 1000);
                 return;
             }
-            logService.log('HTTP GET request (' + region + ') => received ' + newRestocks.length + ' new items.');
             newRestocks.forEach(restockItem => {
                 this.chatManager.displayRestockItem(restockItem, (channelId, id) => {
                     this.service.saveMessageId(channelId, id, restockItem.timestamp);
