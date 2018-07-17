@@ -16,23 +16,31 @@ bot.on('ready', () => {
         logService.log("Bot launched successfully...");
         let databaseConnection = new DatabaseConnection();
         databaseConnection.connect(() => {
-            let restockChecker = new RestockChecker(bot, botStartTime);
-            restockChecker.start();
+            try {
+                let restockChecker = new RestockChecker(bot, botStartTime);
+                restockChecker.start();
+            } catch (err) {
+                logService.logErrorObject(err);
+            }
         });
     } catch (err) {
-        logService.logError("app.js:21 => " + logService.objToString(err));
+        logService.logErrorObject(err);
     }
 });
 
 bot.on('message', message => {
-    if (message.content.trim().charAt(0) !== config.prefix) return;
-    if (!commandManager.isCommand(message.content)) return;
-    if (message.guild === undefined || message.guild === null) return;
-    commandManager.execute(message.content, message);
+    try {
+        if (message.content.trim().charAt(0) !== config.prefix) return;
+        if (!commandManager.isCommand(message.content)) return;
+        if (message.guild === undefined || message.guild === null) return;
+        commandManager.execute(message.content, message);
+    } catch (err) {
+        logService.logErrorObject(err);
+    }
 });
 
 try {
     bot.login(keys.discord_bot_token);
 } catch (err) {
-    logService.logError("app.js:29 => " + logService.objToString(err));
+    logService.logErrorObject(err);
 }

@@ -16,6 +16,10 @@ function logError(obj) {
     logMessage(util.inspect(obj), 'ERROR');
 }
 
+function logErrorObject(obj) {
+    logError(util.inspect(obj));
+}
+
 function logMessage(string, prefix) {
     let now = new Date();
     let msg = '[' + dateFormat(now, "%d/%m/%Y %H:%M:%S", false) + ']';
@@ -77,22 +81,13 @@ function dateFormat (date, fstr, utc) {
 }
 
 module.exports = {
-    log: function(obj) {
-        log(obj);
-    },
-
-    logWarning: function(obj) {
-        logWarning(obj);
-    },
-
-    logError: function(obj) {
-        logError(obj);
-    },
-
+    log,
+    logWarning,
+    logError,
+    logErrorObject,
     setPath: function(p) {
         path = p;
     },
-
     objToString: function(obj) {
         return util.inspect(obj);
     }
