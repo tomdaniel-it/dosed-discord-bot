@@ -1,5 +1,6 @@
 const RestockScraper = require('../network/RestockScraper.js');
 const RestockDao = require('../database/restock/RestockDao.js');
+const logService = require('../service/LogService.js');
 
 // Array of restock items
 let displayedRestocks = [];

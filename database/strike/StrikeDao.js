@@ -1,5 +1,6 @@
 const Strike = require('./StrikeModel.js');
 const DatabaseConnection = require('../DatabaseConnection.js');
+const logService = require('../../service/LogService.js');
 
 let db = (new DatabaseConnection()).getDb();
 

@@ -1,5 +1,6 @@
 const config = require('../config.js');
 const Proxy = require('../domain/Proxy.js');
+const logService = require('../service/LogService.js');
 
 module.exports = class ProxyService {
     constructor() {

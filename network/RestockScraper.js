@@ -2,6 +2,7 @@ const requestPromise = require('request-promise');
 const cheerio = require('cheerio');
 const Restock = require('../domain/Restock.js');
 const config = require('../config.js');
+const logService = require('../service/LogService.js');
 
 class RestockScraper {
 

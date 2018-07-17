@@ -1,5 +1,6 @@
 const config = require('../config.js');
 const UserCommand = require('../domain/UserCommand.js');
+const logService = require('../service/LogService.js');
 
 module.exports = class CommandManager {
     isCommand(command) {

@@ -1,4 +1,5 @@
 const StrikeDao = require('../database/strike/StrikeDao.js');
+const logService = require('../service/LogService.js');
 
 module.exports = class StrikeService {
     constructor() {

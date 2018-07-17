@@ -2,7 +2,6 @@ const config = require('../config.js');
 const RestockService = require('../service/RestockService.js');
 const ChatManager = require('./ChatManager.js');
 const logService = require('../service/LogService.js');
-const Restock = require('../domain/Restock.js');
 
 module.exports = class RestockChecker {
     constructor(bot, botStartTime) {
