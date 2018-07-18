@@ -9,9 +9,14 @@ const config = require('./config.js');
 
 let botStartTime;
 
+process.on('uncaughtException', function(err) {
+    logService.logErrorObject(err);
+});
+
 bot.on('ready', () => {
     try {
         logService.setPath(__dirname);
+        logService.setGuilds(bot.guilds.array());
         botStartTime = new Date();
         logService.log("Bot launched successfully...");
         let databaseConnection = new DatabaseConnection();

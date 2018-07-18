@@ -3,21 +3,34 @@ const config = require('../config.js');
 const fs = require('fs');
 
 let path;
+let guilds = [];
 
 function log(obj) {
     logMessage(util.inspect(obj), 'LOG');
+    if (config.logger.on_log_discord_message) {
+        sendDiscordLog(obj, 'LOG');
+    }
 }
 
 function logWarning(obj) {
     logMessage(util.inspect(obj), 'WARNING');
+    if (config.logger.on_log_discord_message) {
+        sendDiscordLog(obj, 'WARNING');
+    }
 }
 
 function logError(obj) {
     logMessage(util.inspect(obj), 'ERROR');
+    if (config.logger.on_log_discord_message) {
+        sendDiscordLog(obj, 'ERROR');
+    }
 }
 
 function logErrorObject(obj) {
     logError(util.inspect(obj));
+    if (config.logger.on_log_discord_message) {
+        sendDiscordLog(obj, 'ERROR');
+    }
 }
 
 function logMessage(string, prefix) {
@@ -55,6 +68,19 @@ function logMessage(string, prefix) {
     }
 }
 
+function sendDiscordLog(obj, logType) {
+        guilds.forEach(guild => {
+            guild.channels.array().forEach(channel => {
+                if (channel.type !== 'text') return;
+                config.logger.discord_log_channel_ids.forEach(id => {
+                    if (id === channel.id) {
+                        channel.send('[' + logType + '] ' + util.inspect(obj));
+                    }
+                });
+            });
+        });
+}
+
 function getFileLocation() {
     return getFileDirectory() + config.logger.log_file_name;
 }
@@ -87,6 +113,9 @@ module.exports = {
     logErrorObject,
     setPath: function(p) {
         path = p;
+    },
+    setGuilds: function(g) {
+        guilds = g;
     },
     objToString: function(obj) {
         return util.inspect(obj);

@@ -45,6 +45,10 @@ module.exports = {
         log_to_console: true,
         log_file_name: "log.txt",
         log_file_directory: "logs",
+        on_error_discord_message: true,
+        on_warning_discord_message: true,
+        on_log_discord_message: true,
+        discord_log_channel_ids: [ 468934013017522176 ],
     },
     commands: [
         {
