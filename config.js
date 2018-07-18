@@ -48,7 +48,7 @@ module.exports = {
         on_error_discord_message: true,
         on_warning_discord_message: true,
         on_log_discord_message: true,
-        discord_log_channel_ids: [ 468934013017522176 ],
+        discord_log_channel_ids: [ '468934013017522176' ],
     },
     commands: [
         {

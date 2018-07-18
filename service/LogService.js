@@ -73,7 +73,7 @@ function sendDiscordLog(obj, logType) {
             guild.channels.array().forEach(channel => {
                 if (channel.type !== 'text') return;
                 config.logger.discord_log_channel_ids.forEach(id => {
-                    if (id === channel.id) {
+                    if (id === channel.id.toString()) {
                         channel.send('[' + logType + '] ' + util.inspect(obj));
                     }
                 });
