@@ -11,9 +11,9 @@ module.exports = {
         },
         url: "https://www.supremecommunity.com/restocks/",
         channels: {
-            eu: ["461202460636217345"],
-            us: ["461202477132283914"],
-            jpn: ["461202512586866688"]
+            eu: ["461322046169939969"],
+            us: ["461322076200894464"],
+            jpn: ["461322103141040139"]
         },
         wait_between_pages_interval: 1,
         rich_embed_hours_ago_limit: 3, // (hours) the limit for "x hours ago", if greater, a timestamp as string will be displayed (also automatically works with days)
@@ -48,7 +48,7 @@ module.exports = {
         on_error_discord_message: true,
         on_warning_discord_message: true,
         on_log_discord_message: true,
-        discord_log_channel_ids: [ '468934013017522176' ],
+        discord_log_channel_ids: [ '469110223941140481' ],
     },
     commands: [
         {
