@@ -4,6 +4,8 @@ const Restock = require('../domain/Restock.js');
 const config = require('../config.js');
 const logService = require('../service/LogService.js');
 
+var first = true;
+
 class RestockScraper {
 
     constructor()
@@ -20,6 +22,10 @@ class RestockScraper {
             if (callback === undefined || callback === null) callback = function() {};
             if(page == undefined) page = 1;
             if(restocks == undefined) restocks = [];
+            if (first) {
+                restocks.push(new Restock(12345, 12345, "Test", "This is a test", "https://images.fireside.fm/podcasts/images/b/bc7f1faf-8aad-4135-bb12-83a8af679756/cover_medium.jpg" , new Date(), "https://images.fireside.fm/podcasts/images/b/bc7f1faf-8aad-4135-bb12-83a8af679756/cover_medium.jpg", config.restocks.regions.eu));
+                first = false;
+            }
             return requestPromise({
                 uri: this.url + region + "/" + page + "/",
                 transform: function (body) {

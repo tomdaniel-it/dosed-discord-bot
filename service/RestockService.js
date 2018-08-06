@@ -1,5 +1,5 @@
 const RestockScraper = require('../network/RestockScraper.js');
-const RestockDao = require('../database/restock/RestockDao.js');
+const restockDao = require('../database/restock/RestockDao.js');
 const logService = require('../service/LogService.js');
 
 // Array of restock items
@@ -10,7 +10,7 @@ module.exports = class RestockService {
     constructor() {
         try {
             this.restockScraper = new RestockScraper();
-            this.restockDao = new RestockDao();
+            this.restockDao = restockDao;
         } catch (err) {
             logService.logErrorObject(err);
         }

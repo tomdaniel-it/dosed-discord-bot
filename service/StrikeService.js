@@ -1,9 +1,9 @@
-const StrikeDao = require('../database/strike/StrikeDao.js');
+const strikeDao = require('../database/strike/StrikeDao.js');
 const logService = require('../service/LogService.js');
 
 module.exports = class StrikeService {
     constructor() {
-        this.strikeDao = new StrikeDao();
+        this.strikeDao = strikeDao;
     }
 
     getStrikes(userId, callback) {

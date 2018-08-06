@@ -10,15 +10,10 @@ module.exports = {
             jpn: "jpn"
         },
         url: "https://www.supremecommunity.com/restocks/",
-        channels: {
-            eu: ["461202460636217345"],
-            us: ["461202477132283914"],
-            jpn: ["461202512586866688"]
-        },
         wait_between_pages_interval: 1,
         rich_embed_hours_ago_limit: 3, // (hours) the limit for "x hours ago", if greater, a timestamp as string will be displayed (also automatically works with days)
         proxy_switch_interval: 600,
-        message_update_interval: 20, // Updates the timestamps in the messages
+        message_update_interval: 2, // Updates the timestamps in the messages
         request_block_timeout: 300, // The amount of seconds to wait if a request gets blocked
     },
     proxies: [
@@ -48,7 +43,6 @@ module.exports = {
         on_error_discord_message: true,
         on_warning_discord_message: true,
         on_log_discord_message: true,
-        discord_log_channel_ids: [ '468934013017522176' ],
     },
     commands: [
         {
@@ -79,5 +73,11 @@ module.exports = {
             file_name: 'help.js',
             description: 'help : Get help for this bot'
         }
-    ]
+    ],
+    database: {
+        type: 'MYSQL', // MYSQL or MONGODB
+        mysql: {
+            connection_refresh_time: 300, // create new connection every 5 minutes
+        },
+    }
 };

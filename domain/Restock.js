@@ -1,5 +1,4 @@
 class Restock {
-    
     constructor(id, styleId, name, description, imageURL, timestamp, url, region)
     {
         this.id = id;
@@ -11,7 +10,6 @@ class Restock {
         this.url = url;
         this.region = region;
     }
-
 }
 
 module.exports = Restock;

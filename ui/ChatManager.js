@@ -1,4 +1,5 @@
 const config = require('../config.js');
+const env = require('../env.js');
 const logService = require('../service/LogService.js');
 const RestockService = require('../service/RestockService.js');
 
@@ -19,7 +20,7 @@ module.exports = class ChatManager {
         if (callback === undefined || callback === null) callback = function() {};
         try {
             this.bot.channels.array().forEach(channel => {
-                if (config.restocks.channels[restockItem.region.toLowerCase()].indexOf(channel.id.toString()) !== -1) {
+                if (env.restocks.channels[restockItem.region.toLowerCase()].indexOf(channel.id.toString()) !== -1) {
                     let now = new Date();
                     let amountAgo = parseInt(Math.abs((now.getTime() - restockItem.timestamp.getTime()) / 1000));
                     let datepart = "seconds";
@@ -45,9 +46,9 @@ module.exports = class ChatManager {
                             author: {
                               name: restockItem.name,
                               url: "http://supremenewyork.com/shop/dosed/" + restockItem.id + "/" + restockItem.styleId,
-                              icon_url: "attachment://" + restockItem.region.toUpperCase() + "_Restock.png"
+                              icon_url: "http://dosedonl.ampro3.fcomet.com/images/dosed_logo.png"
                             }
-                        }, files: [{ attachment: 'img/dosed_logo.png', name: restockItem.region.toUpperCase() + "_Restock.png" }] }).then(message => {
+                        }}).then(message => {
                             callback(channel.id, message.id);
                         });
                     } else {
@@ -63,9 +64,9 @@ module.exports = class ChatManager {
                             author: {
                               name: restockItem.name,
                               url: "http://supremenewyork.com/shop/dosed/" + restockItem.id + "/" + restockItem.styleId,
-                              icon_url: "attachment://" + restockItem.region.toUpperCase() + "_Restock.png"
+                              icon_url: "http://dosedonl.ampro3.fcomet.com/images/dosed_logo.png"
                             }
-                        }, files: [{ attachment: 'img/dosed_logo.png', name: restockItem.region.toUpperCase() + "_Restock.png" }] }).then(message => {
+                        }}).then(message => {
                             callback(channel.id, message.id);
                         });
                     }
@@ -108,9 +109,9 @@ module.exports = class ChatManager {
                                             author: {
                                               name: embed.author.name,
                                               url: embed.author.url,
-                                              icon_url: "attachment://Restock.png"
+                                              icon_url: "http://dosedonl.ampro3.fcomet.com/images/dosed_logo.png"
                                             }
-                                        }, files: [{ attachment: 'img/dosed_logo.png', name: "Restock.png" }] });
+                                        }});
                                     } else {
                                         time = time.split('|');
                                         message.edit({ embed: {
@@ -126,9 +127,9 @@ module.exports = class ChatManager {
                                             author: {
                                                 name: embed.author.name,
                                                 url: embed.author.url,
-                                                icon_url: "attachment://Restock.png"
+                                                icon_url: "http://dosedonl.ampro3.fcomet.com/images/dosed_logo.png"
                                             }
-                                        }, files: [{ attachment: 'img/dosed_logo.png', name: "Restock.png" }] });
+                                        }});
                                         this.service.removeMessageIds(channel.id, [ message.id ]);
                                     }
                                 } catch (err) {

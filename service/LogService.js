@@ -1,5 +1,6 @@
 const util = require('util');
 const config = require('../config.js');
+const env = require('../env.js');
 const fs = require('fs');
 
 let path;
@@ -69,16 +70,17 @@ function logMessage(string, prefix) {
 }
 
 function sendDiscordLog(obj, logType) {
-        guilds.forEach(guild => {
-            guild.channels.array().forEach(channel => {
-                if (channel.type !== 'text') return;
-                config.logger.discord_log_channel_ids.forEach(id => {
-                    if (id === channel.id.toString()) {
-                        channel.send('[' + logType + '] ' + util.inspect(obj));
-                    }
-                });
+    obj = util.inspect(obj);
+    guilds.forEach(guild => {
+        guild.channels.array().forEach(channel => {
+            if (channel.type !== 'text') return;
+            env.logger.discord_log_channel_ids.forEach(id => {
+                if (id === channel.id.toString()) {
+                    channel.send('[' + logType + '] ' + obj);
+                }
             });
         });
+    });
 }
 
 function getFileLocation() {

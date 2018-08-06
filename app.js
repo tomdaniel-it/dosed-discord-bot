@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
 const bot = new Discord.Client();
-const keys = require('./keys.js');
+const env = require('./env.js');
 const RestockChecker = require('./ui/RestockChecker.js');
 const logService = require('./service/LogService.js');
-const DatabaseConnection = require('./database/DatabaseConnection');
+const databaseConnection = require('./database/DatabaseConnection.js');
+const DatabaseType = require('./database/DatabaseType.js');
 const commandManager = new (require('./ui/CommandManager.js'));
 const config = require('./config.js');
 
@@ -19,7 +20,6 @@ bot.on('ready', () => {
         logService.setGuilds(bot.guilds.array());
         botStartTime = new Date();
         logService.log("Bot launched successfully...");
-        let databaseConnection = new DatabaseConnection();
         databaseConnection.connect(() => {
             try {
                 let restockChecker = new RestockChecker(bot, botStartTime);
@@ -45,7 +45,7 @@ bot.on('message', message => {
 });
 
 try {
-    bot.login(keys.discord_bot_token);
+    bot.login(env.discord_bot_token);
 } catch (err) {
     logService.logErrorObject(err);
 }
