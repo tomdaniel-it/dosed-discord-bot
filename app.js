@@ -9,12 +9,40 @@ const commandManager = new (require('./ui/CommandManager.js'));
 const config = require('./config.js');
 
 let botStartTime;
+let onReadyCallbacks = [];
+let reconnectInterval;
 
 process.on('uncaughtException', function(err) {
     logService.logErrorObject(err);
+    tryReconnect();
 });
 
+bot.on('error', (error) => {
+    tryReconnect();
+});
+
+function tryReconnect() {
+    if (reconnectInterval !== undefined && reconnectInterval !== null) return;
+    logService.logWarning('Disconnected, trying to reconnect...');
+    let timeout;
+    reconnectInterval = setInterval(() => {
+        login(() => {
+            clearTimeout(timeout);
+            clearInterval(reconnectInterval);
+            timeout = null;
+            reconnectInterval = null;
+        });
+    }, 2000);
+    timeout = setTimeout(() => { 
+        clearInterval(reconnectInterval);
+        logService.logError('Could not reconnect within 5 minutes, quiting...');
+        process.exit(1);
+    }, 300000);
+}
+
 bot.on('ready', () => {
+    onReadyCallbacks.forEach(cb => { cb(); });
+    onReadyCallbacks = [];
     try {
         logService.setPath(__dirname);
         logService.setGuilds(bot.guilds.array());
@@ -44,8 +72,13 @@ bot.on('message', message => {
     }
 });
 
-try {
-    bot.login(env.discord_bot_token);
-} catch (err) {
-    logService.logErrorObject(err);
+function login(cb) {
+    if (cb !== undefined && cb !== null) onReadyCallbacks.push(cb);
+    try {
+        bot.login(env.discord_bot_token);
+    } catch (err) {
+        logService.logErrorObject(err);
+    }
 }
+
+login();
