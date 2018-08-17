@@ -49,8 +49,6 @@ class RestockScraper {
                         restockData.description = jQueryElement.find(".restock-colorway").text();
                         restockData.url = "https://supremenewyork.com/shop/dosed/" + restockData.itemid + "/" + restockData.styleid;
                         restockData.region = region;
-                        currentPageRestocks.push(new Restock(restockData.itemid, restockData.styleid, restockData.itemname,
-                            restockData.description, 'https:' + restockData.itemimg, restockData.timestamp, restockData.url, restockData.region));
                     }
                     restocks = restocks.concat(currentPageRestocks);
                     if(shouldCheckNextPage) {
