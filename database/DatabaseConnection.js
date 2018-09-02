@@ -15,6 +15,7 @@ function refreshMysqlConnection() {
     let cb = () => {
         connect(() => {
             mysqlConnectionAwaiters.forEach((func) => { func(mySQLConnection); });
+            mysqlConnectionAwaiters = [];
         }, false);
     };
     if (mySQLConnection !== undefined && mySQLConnection !== null) {
